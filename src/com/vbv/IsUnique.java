@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class IsUnique {
     public static void main(String[] args) {
-        String s = "abc";
+        String s = "ddddddddd";
         IsUnique iU = new IsUnique();
         boolean isUniqueUsingHT = iU.containsUniqueWithHashTable(s);
         System.out.println(isUniqueUsingHT);
@@ -16,20 +16,28 @@ public class IsUnique {
         Hashtable<Character,Integer> uniqueHT = new Hashtable();
         for (int i = 0; i < s.length(); i++) {
             char key = s.charAt(i);
-            Integer val = uniqueHT.getOrDefault(key, 0);
-            if(val ==0){
-                uniqueHT.put(key,1);
-            }else{
-                uniqueHT.put(key,val+1);
-            }
+            putVal(uniqueHT, key);
         }
         Set<Character> keys = uniqueHT.keySet();
         for(Character key: keys){
-            if (uniqueHT.get(key)>1){
-                return false;
+            if (multipleOccurenceFound(uniqueHT, key)){
+                return true;
             }
         }
-        return true;
+        return false;
+    }
+
+    private boolean multipleOccurenceFound(Hashtable<Character, Integer> uniqueHT, Character key) {
+        return uniqueHT.get(key)>1;
+    }
+
+    private void putVal(Hashtable<Character, Integer> uniqueHT, char key) {
+        Integer val = uniqueHT.getOrDefault(key, 0);
+        if(val ==0){
+            uniqueHT.put(key,1);
+        }else{
+            uniqueHT.put(key,val+1);
+        }
     }
 
 
